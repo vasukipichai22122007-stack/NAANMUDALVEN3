@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduGenie Core Engine | Adaptive Educational Intelligence</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              bg: '#070913',
+              card: '#0d1224',
+              cyan: '#06b6d4',
+              purple: '#8b5cf6',
+              emerald: '#10b981',
+              amber: '#f59e0b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="selection:bg-cyan-500/30 selection:text-cyan-200">
+  <div class="cyber-grid"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#070913]/80 border-b border-indigo-500/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+          <span class="text-white font-black text-lg">E</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-white tracking-tight text-lg">EduGenie</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono">v2.4 CORE</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono hidden sm:block">Unified Fast-Inference Pedagogical Backend</p>
+        </div>
+      </div>
+
+      <!-- Engine Status & Architecture Pills -->
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300">
+          <span class="pulse-dot"></span>
+          <span>Zero-Break Protocol: <strong class="text-emerald-400">ACTIVE</strong></span>
+        </div>
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-950/40 border border-indigo-500/20 text-xs text-indigo-300 font-mono">
+          <span>Gemini 1.5 Pro</span>
+          <span class="text-slate-500">|</span>
+          <span>LaMini-Flan-T5</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 text-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-xs font-medium mb-4">
+      <span class="text-cyan-400">⚡ Dynamic Intent Routing</span>
+      <span class="text-slate-500">•</span>
+      <span>Zero Visual Distortion Guaranteed</span>
+    </div>
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto mb-4">
+      Cognitive Acceleration via <span class="gradient-text-hero">EduGenie Core</span>
+    </h1>
+    <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+      A multi-model pedagogical engine executing high-density text condensation, transparent concept breakdown, strict 3-MCQ generation, and adaptive learning paths.
+    </p>
+
+    <!-- Quick Endpoint Selector Bar -->
+    <div class="mt-8 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+      <button class="endpoint-tab active" data-endpoint="/summarize">
+        <span class="text-cyan-400">📄</span>
+        <span>/summarize</span>
+      </button>
+      <button class="endpoint-tab" data-endpoint="/explain">
+        <span class="text-purple-400">💡</span>
+        <span>/explain</span>
+      </button>
+      <button class="endpoint-tab" data-endpoint="/quiz">
+        <span class="text-emerald-400">🎯</span>
+        <span>/quiz</span>
+      </button>
+      <button class="endpoint-tab" data-endpoint="/qa">
+        <span class="text-amber-400">🧠</span>
+        <span>/qa</span>
+      </button>
+      <button class="endpoint-tab" data-endpoint="/learn/recommendations">
+        <span class="text-rose-400">🗺️</span>
+        <span>/learn</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Main Interactive Studio -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- Left Input & Controller Column (5 cols) -->
+      <div class="lg:col-span-5 space-y-5">
+        <div class="glass-panel p-5 sm:p-6 space-y-4">
+          <!-- Active Module Header -->
+          <div class="border-b border-slate-800 pb-3">
+            <div class="flex items-center justify-between">
+              <span id="active-endpoint-label" class="text-xs font-mono font-bold text-cyan-400">
+                SUMMARIZATION MODULE (/summarize)
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">PORT 8000</span>
+            </div>
+            <p id="active-endpoint-desc" class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Paragraph condensation for rapid revision. Synthesizes core takeaways with zero redundant filler.
+            </p>
+          </div>
+
+          <!-- Preset Loader -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+              <span>Knowledge Preset</span>
+              <span class="text-[11px] text-cyan-400 font-normal">Click to quick-load</span>
+            </label>
+            <select id="preset-select" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-400 transition-colors">
+              <option value="quantum">Quantum Entanglement & Superposition</option>
+              <option value="photosynthesis">Photosynthesis & Cellular Energy</option>
+              <option value="deeplearning">Neural Networks & Backpropagation</option>
+              <option value="history">The Industrial Revolution & Mechanization</option>
+            </select>
+          </div>
+
+          <!-- Difficulty Level Selector (Shown for /explain) -->
+          <div id="level-selector-wrapper" class="hidden">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              Target Comprehension Tier
+            </label>
+            <div class="grid grid-cols-3 gap-2">
+              <button data-level="eli5" class="level-btn px-2.5 py-2 rounded-xl text-xs font-medium border bg-slate-800/80 border-slate-700 text-slate-400 hover:text-white transition-all text-center">
+                👶 ELI5
+              </button>
+              <button data-level="highschool" class="level-btn px-2.5 py-2 rounded-xl text-xs font-medium border bg-cyan-500/20 border-cyan-400 text-cyan-300 transition-all text-center">
+                🎓 High School
+              </button>
+              <button data-level="college" class="level-btn px-2.5 py-2 rounded-xl text-xs font-medium border bg-slate-800/80 border-slate-700 text-slate-400 hover:text-white transition-all text-center">
+                🔬 College
+              </button>
+            </div>
+          </div>
+
+          <!-- Textarea Input -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label id="input-label" class="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Source Study Text
+              </label>
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 font-mono">
+                <span id="input-word-count">0 words</span>
+                <span>•</span>
+                <span id="input-char-count">0 chars</span>
+              </div>
+            </div>
+            <textarea id="source-input" rows="8" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-400 transition-all font-sans leading-relaxed resize-none" placeholder="Enter topic or paste text to process..."></textarea>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="space-y-2 pt-1">
+            <button id="execute-btn" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:via-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-cyan-500/20 transition-all active:scale-[0.99] flex items-center justify-center gap-2">
+              <span>⚡ Execute Payload</span>
+            </button>
+            <button id="zero-break-test-btn" class="w-full py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-amber-500/30 hover:border-amber-500/60 text-amber-300 font-mono text-[11px] transition-all flex items-center justify-center gap-2">
+              <span>🛡️ Test Zero-Break Protocol (Edge Cases)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Engine Spec Micro-Widget -->
+        <div class="glass-panel p-4 text-xs font-mono text-slate-400 space-y-1.5 border border-slate-800/80">
+          <div class="text-slate-300 font-semibold mb-2 flex items-center justify-between">
+            <span>⚙️ Runtime Configuration</span>
+            <span class="text-emerald-400">Zero Crash Tolerant</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Router:</span>
+            <span class="text-slate-300">FastAPI Unified Dispatch</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Models:</span>
+            <span class="text-slate-300">Gemini 1.5 Pro / LaMini-Flan</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">JSON Schema:</span>
+            <span class="text-cyan-300">Strict Pydantic Enforced</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Stage & Results Column (7 cols) -->
+      <div class="lg:col-span-7 space-y-5">
+        <div class="glass-panel p-5 sm:p-6 min-h-[580px] flex flex-col justify-between">
+          <div>
+            <!-- Results Header & Controls -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-5 flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></div>
+                <h3 class="font-bold text-sm text-white tracking-wide">Synthesized Engine Output</h3>
+              </div>
+
+              <!-- Output Tooling: Mode switcher, TTS, Copy -->
+              <div class="flex items-center gap-2">
+                <!-- Pedagogical vs Raw JSON Toggle -->
+                <div class="flex items-center p-0.5 rounded-lg bg-slate-900 border border-slate-800 text-xs">
+                  <button id="toggle-view-pedagogical" class="px-2.5 py-1 rounded-md bg-indigo-600/40 border border-indigo-400 text-white font-medium transition-all">
+                    Visual UI
+                  </button>
+                  <button id="toggle-view-json" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white font-mono transition-all">
+                    JSON Schema
+                  </button>
+                </div>
+
+                <!-- TTS Audio Button -->
+                <button id="tts-btn" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-200 transition-colors flex items-center gap-1.5" title="Listen to text">
+                  <span>🔊 Listen</span>
+                </button>
+
+                <!-- Copy Button -->
+                <button id="copy-btn" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-200 transition-colors flex items-center gap-1.5" title="Copy to clipboard">
+                  <span>📋 Copy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Stats Bar (Shown for /summarize) -->
+            <div id="stats-container" class="hidden"></div>
+
+            <!-- Stage View 1: Visual Pedagogical UI -->
+            <div id="pedagogical-view" class="space-y-4">
+              <!-- Dynamically populated by app.js -->
+            </div>
+
+            <!-- Stage View 2: Raw JSON Schema View -->
+            <div id="raw-json-view" class="hidden">
+              <div class="code-terminal p-4">
+                <pre><code id="json-code" class="text-xs"></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Footer Note -->
+          <div class="pt-6 border-t border-slate-800/80 mt-6 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+            <span>Stylistic Signature: ├─ Tree Nodes • 💡 Key Insight</span>
+            <span>Zero-Break Payload Active</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Architecture Showcase Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      <div class="text-xs uppercase tracking-wider text-cyan-400 font-bold mb-2">Architectural Blueprint</div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">How EduGenie Core Operates</h2>
+      <p class="text-xs sm:text-sm text-slate-400 mt-2">
+        Engineered with a zero-crash contract to power modern high-scale educational interfaces.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-panel p-6 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl">
+          ⚡
+        </div>
+        <h3 class="text-base font-bold text-white">Dynamic Intent Routing</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Incoming requests dynamically map to specialized modules (/explain, /qa, /quiz, /summarize, /learn) without dropping context or creating latency cascades.
+        </p>
+      </div>
+
+      <div class="glass-panel p-6 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl">
+          🛡️
+        </div>
+        <h3 class="text-base font-bold text-white">Zero-Break Resilience</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Malformed, empty, or anomalous inputs are caught by the Zero-Break protocol, instantly returning a standardized fallback payload without runtime crashes.
+        </p>
+      </div>
+
+      <div class="glass-panel p-6 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
+          🎓
+        </div>
+        <h3 class="text-base font-bold text-white">Pedagogical Visual Engine</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Every non-JSON response enforces structural clarity: bold core takeaways, tree markers (├─, └─), and single high-yield "💡 Key Insight" takeaways.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-900 py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span class="text-slate-400 font-medium">EduGenie Core Engine & Educational Intelligence Platform</span>
+      </div>
+      <div class="font-mono text-[11px] text-slate-600">
+        FastAPI • Gemini 1.5 Pro • LaMini-Flan-T5-783M • Zero-Break Matrix
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
